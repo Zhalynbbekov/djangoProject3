@@ -1,0 +1,74 @@
+.row1 {
+    position:absolute;
+    left: 90px;
+    width: 500px;
+    height: 240px;
+    border: 3px solid blue;
+    margin-top: 20px;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.row2 {
+    position: absolute;
+    right: 90px;
+    width: 500px;
+    height: 240px;
+    border: 3px solid blue;
+    margin-top: 20px;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.row3 {
+    position: absolute;
+    left: 90px;
+    width: 500px;
+    height: 240px;
+    border: 3px solid blue;
+    margin-top: 300px;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.row4 {
+    position: absolute;
+    right: 90px;
+    width: 500px;
+    height: 240px;
+    border: 3px solid blue;
+    margin-top: 300px;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.big {
+    position: page  ;
+    width: 1180px;
+    height: 560px;
+    border: 2px solid black;
+}
+
+.update {
+    margin-top: 16px;
+}
+
+.download {
+    margin-top: 12px;
+    margin-left: 1100px;
+}
+
+.input {
+    width: 70%;
+    padding: 12px 20px;
+    margin: 4px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.turnoff {
+    margin-left: 1110px;
+}
+

@@ -2,13 +2,67 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task1</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <script src="{% static 'js/simplebar.js' %}"></script>
 </head>
 <body>
-    {% if name %}
-    <h1>Hello {{ name }}</h1>
-    {% else %}
-    <h1>Hello World</h1>
-    {% endif %}
+<div>
+    <div class="row1">
+        <div>
+            <h2>{{ zagon1 }}</h2>
+            {% for i in sheeps1 %}
+                <p>{{ i }}</p>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="row2">
+        <div>
+            <h2 class="words">{{ zagon2 }}</h2>
+            {% for i in sheeps2 %}
+                <p>{{ i }}</p>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="row3">
+        <div>
+            <h2 class="words">{{ zagon3 }}</h2>
+            {% for i in sheeps3 %}
+                <p>{{ i }}</p>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="row4">
+        <div>
+            <h2 class="words">{{ zagon4 }}</h2>
+            {% for i in sheeps4 %}
+                <p>{{ i }}</p>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="big"></div>
+</div>
+<div>
+    <button class="update"><a href="{% url 'home' %}">Update</a></button>
+</div>
+<div class="download">
+    <button> Beat Sheeps</button>
+</div>
+{#<div>#}
+{#    <input class="input" type="text" placeholder="Enter a text command...">#}
+{#</div>#}
+<form action = "{% url 'command' %}" method = "post">
+    {% csrf_token %}
+    <label for="command">Enter text: </label>
+    <input class="input" id="command" type="text" name="command">
+    <input type="submit" value="OK">
+</form>
+{#<div class="turnoff">#}
+{#    <button>turn off</button>#}
+{#</div>#}
+
 </body>
 </html>
