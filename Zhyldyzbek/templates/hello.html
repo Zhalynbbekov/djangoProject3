@@ -48,12 +48,17 @@
 <div>
     <button class="update"><a href="{% url 'home' %}">Update</a></button>
 </div>
-<div class="download">
-    <button> Beat Sheeps</button>
-</div>
+{#<div class="download">#}
+{#    <button> Beat Sheeps</button>#}
+{#</div>#}
 {#<div>#}
 {#    <input class="input" type="text" placeholder="Enter a text command...">#}
 {#</div>#}
+<div>
+ <h1>
+   Deleted sheeps {{ count }}
+ </h1>
+</div>
 <form action = "{% url 'command' %}" method = "post">
     {% csrf_token %}
     <label for="command">Enter text: </label>

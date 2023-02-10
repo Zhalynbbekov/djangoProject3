@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import *
 import random
 
@@ -8,15 +8,36 @@ def random_zag_sheeps():
     ran_sheeps = random.randint(1, 3)
 
     zagon = Zagons.objects.all()[ran_zag]
-    sheeps_zag = Sheeps.objects.filter(zagon=zagon)
-    last_sheeps = int(str(Sheeps.objects.all().last())[-2:])
-    if len(sheeps_zag) != 1:
-        for i in range(ran_sheeps):
-            sheeps = Sheeps()
-            sheeps.title = f'Овечка{last_sheeps + 1}'
-            sheeps.zagon = Zagons.objects.all()[ran_zag]
-            sheeps.save()
-            last_sheeps += 1
+    if not Sheeps.objects.filter(zagon=zagon):
+        last_sheeps_test = Sheeps.objects.all().last()
+        if last_sheeps_test:
+            last_sheeps = int(str(Sheeps.objects.all().last())[6:])
+            for i in range(ran_sheeps):
+                sheeps = Sheeps()
+                sheeps.title = f'Овечка{last_sheeps + 1}'
+                sheeps.zagon = Zagons.objects.all()[ran_zag]
+                sheeps.save()
+                last_sheeps += 1
+        else:
+            count = 0
+            for i in range(ran_sheeps):
+                sheeps = Sheeps()
+                sheeps.title = f'Овечка{count + 1}'
+                sheeps.zagon = Zagons.objects.all()[ran_zag]
+                sheeps.save()
+                count += 1
+
+
+    else:
+        sheeps_zag = Sheeps.objects.filter(zagon=zagon)
+        last_sheeps = int(str(Sheeps.objects.all().last())[6:])
+        if len(sheeps_zag) != 1:
+            for i in range(ran_sheeps):
+                sheeps = Sheeps()
+                sheeps.title = f'Овечка{last_sheeps + 1}'
+                sheeps.zagon = Zagons.objects.all()[ran_zag]
+                sheeps.save()
+                last_sheeps += 1
 
 
 # Create your views here.
@@ -30,6 +51,7 @@ def say_hello(request):
     sheeps3 = Sheeps.objects.filter(zagon=zagon3)
     zagon4 = Zagons.objects.all()[3]
     sheeps4 = Sheeps.objects.filter(zagon=zagon4)
+    count = Deleted_sheeps.objects.all().count()
     return render(request, 'hello.html',
                   {
                       'zagon1': zagon1,
@@ -40,6 +62,7 @@ def say_hello(request):
                       'sheeps3': sheeps3,
                       'zagon4': zagon4,
                       'sheeps4': sheeps4,
+                      'count': count
                   })
 
 
@@ -49,12 +72,12 @@ def command(request):
         pass
     else:
         command_list = request.POST['command'].split()
-        print(command_list)
         if 'переместить' == command_list[1]:
             sheep = Sheeps.objects.get(title=command_list[0])
             zagon = Zagons.objects.get(title=command_list[2])
             sheep.zagon = zagon
             sheep.save()
+
         elif 'Убить' == command_list[0]:
             sheep = Sheeps.objects.get(title=command_list[1])
             deleted_sheeps = Deleted_sheeps()
@@ -62,6 +85,8 @@ def command(request):
             deleted_sheeps.zagon = sheep.zagon
             deleted_sheeps.save()
             sheep.delete()
+        else:
+            return redirect('/')
 
     zagon1 = Zagons.objects.all()[0]
     sheeps1 = Sheeps.objects.filter(zagon=zagon1)
@@ -71,6 +96,7 @@ def command(request):
     sheeps3 = Sheeps.objects.filter(zagon=zagon3)
     zagon4 = Zagons.objects.all()[3]
     sheeps4 = Sheeps.objects.filter(zagon=zagon4)
+    count = Deleted_sheeps.objects.all().count()
     return render(request, 'hello.html',
                   {
                       'zagon1': zagon1,
@@ -81,4 +107,5 @@ def command(request):
                       'sheeps3': sheeps3,
                       'zagon4': zagon4,
                       'sheeps4': sheeps4,
+                      'count': count
                   })
